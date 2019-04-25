@@ -1,0 +1,18 @@
+<ion-header>
+ <ion-toolbar color="primary">
+   <ion-buttons slot="start">
+   </ion-buttons>
+   <ion-title>Home</ion-title>
+ </ion-toolbar>
+</ion-header>
+<ion-content class="body">
+  <p> Take a picture of the sudoku you want to solve</p>
+    <button class="capture" ion-fab (click)="takePicture()">
+      <ion-icon name="camera"></ion-icon>
+    </button>
+  <div class="picture">
+  <p> Latest Picture: </p>
+  <img [src]="currentImage" *ngIf="currentImage">
+</div>
+<ion-button color="primary" id="solve" [routerLink]='["/sudoku"]' routerDirection="forward" *ngIf="currentImage">Solve it now!</ion-button>
+</ion-content>

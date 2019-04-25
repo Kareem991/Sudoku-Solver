@@ -1,0 +1,29 @@
+<ion-header>
+ <ion-toolbar color="primary">
+   <ion-buttons slot="start">
+     <ion-back-button defaultHref="/home"></ion-back-button>
+   </ion-buttons>
+   <ion-title>Sudoku</ion-title>
+ </ion-toolbar>
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
+</ion-header>
+<ion-content>
+	<h1>Sudoku</h1>
+ <div class="container">
+      
+ 
+
+      <table id="grid" *ngIf="this.isLoading">
+      	<tr *ngFor="let i of [0,1,2,3,4,5,6,7,8]">
+      	<td *ngFor="let j of [0,1,2,3,4,5,6,7,8]">
+         <input id="cell-{{j+9*i}}"  type="number"  maxlength="1" value={{j+1}} min='1' max='9' oninput="validity.valid||(value='');" (keyup.enter)="closeKeyboard()"></td>
+		</tr>
+  
+
+      </table>
+
+      
+
+    </div>
+
+</ion-content>
