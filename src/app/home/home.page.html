@@ -14,5 +14,6 @@
   <p> Latest Picture: </p>
   <img [src]="currentImage" *ngIf="currentImage">
 </div>
-<ion-button color="primary" id="solve" [routerLink]='["/sudoku"]' routerDirection="forward" *ngIf="currentImage">Solve it now!</ion-button>
+<ion-button color="primary" id="solve" [routerLink]='["/sudoku"]' routerDirection="forward" *ngIf="
+!currentImage">Solve it now!</ion-button>
 </ion-content>
