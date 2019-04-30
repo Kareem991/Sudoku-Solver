@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
 import { NavController } from '@ionic/angular';
+import {GlobalService} from '../services/global.service';
 
 
 
@@ -12,7 +13,7 @@ import { NavController } from '@ionic/angular';
 export class HomePage {
 	currentImage: any;
 
-  	constructor(public navCtrl:NavController, private camera: Camera) {
+  	constructor(public navCtrl:NavController, private camera: Camera,public globalService: GlobalService) {
 }
 
 takePicture() {
@@ -27,6 +28,7 @@ takePicture() {
     }
 
     this.camera.getPicture(options).then((imageData) => {
+    this.globalService.imagy = imageData;
       this.currentImage = 'data:image/jpeg;base64,' + imageData;
     }, (err) => {
      // Handle error

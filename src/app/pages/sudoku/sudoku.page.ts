@@ -6,6 +6,7 @@ import { HttpHeaders } from '@angular/common/http';
 import 'rxjs/add/operator/map';
 import { map } from 'rxjs/operators';
 import {GlobalService} from '../../services/global.service';
+import { Base64 } from '@ionic-native/base64/ngx';
 
 
 
@@ -23,21 +24,25 @@ images: any;
 imagy:any;
 
 
-  constructor(public globalService: GlobalService,public loadingController:LoadingController, public keyboard: Keyboard, public httpClientModule: HttpClient) { }
+  constructor(public base64: Base64,public globalService: GlobalService,public loadingController:LoadingController, public keyboard: Keyboard, public httpClientModule: HttpClient) { }
   closeKeyboard(){
   this.keyboard.hide();
   }
   
    ngOnInit() {
-
+  
+ 
  this.toDataURL(
-  'assets/image/icon.png',
-  (dataUrl) => {
-    this.globalService.imagy=dataUrl;
+  'assets/image/imageToSave.png', (function
+  (dataUrl){
+  var ret = dataUrl.replace("data:image/png;base64,",'');
+    this.globalService.imagy=ret;
     this.jsonData=JSON.stringify({image: this.globalService.imagy});
     this.presentLoading();
-  }
+  }).bind(this),''
 )
+
+
 
 
 
@@ -51,39 +56,39 @@ const httpOptions = {
     
   })
 };
-
- this.httpClientModule.post("http://127.0.0.1:5000/image",this.jsonData,httpOptions)
+ this.httpClientModule.post("https://sudoku-asu.herokuapp.com/image",this.jsonData,httpOptions)
  .subscribe(data=>{
- this.response=data.image;
- console.log(this.response)});
+ this.response=data;
+ });
 }
  
  async presentLoading() {
   	
     const loading = await this.loadingController.create({
       message: 'Loading Data',
-      duration: 3000
+      duration: 11000
     });
     await loading.present();
-    console.log(myElement);
-    this.isLoading=true;
 	this.startHTTP();
     const { role, data } = await loading.onDidDismiss();
-    var myElement = document.getElementsByTagName("input");
-this.images = this.response;
+    this.isLoading=true;
+    var myElement = document.querySelectorAll('*[id]');
+	this.fill_board(this.response);
+	
   }
 
  
   toDataURL(src, callback, outputFormat) {
   var img = new Image();
   img.crossOrigin = 'Anonymous';
-  img.onload = function() {
-    var canvas = document.createElement('CANVAS');
+ 
+  img.onload = () => {
+    var canvas : any = document.createElement('CANVAS');
     var ctx = canvas.getContext('2d');
     var dataURL;
-    canvas.height = this.naturalHeight;
-    canvas.width = this.naturalWidth;
-    ctx.drawImage(this, 0, 0);
+    canvas.height = img.naturalHeight;
+    canvas.width = img.naturalWidth;
+    ctx.drawImage(img, 0, 0);
     dataURL = canvas.toDataURL(outputFormat);
     callback(dataURL);
   };
@@ -93,7 +98,20 @@ this.images = this.response;
     img.src = src;
   }
 }
-  
+fill_board(response){
+var i,j ;
+	var board = response['board']
+	for(i=0;i<9;i++)
+	for(j=0;j<9;j++){
+	var cell = document.getElementById('cell-'+(j+9*i));
+	if(board[i][j]==0)
+	cell["value"]=null;
+	else
+	cell["value"]=board[i][j];
+	}
+	
+
+}
 
 }
  

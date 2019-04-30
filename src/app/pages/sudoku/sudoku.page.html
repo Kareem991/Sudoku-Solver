@@ -3,7 +3,7 @@
    <ion-buttons slot="start">
      <ion-back-button defaultHref="/home"></ion-back-button>
    </ion-buttons>
-   <ion-title>Sudoku</ion-title>
+   <ion-title>Puzzle</ion-title>
  </ion-toolbar>
 <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
 </ion-header>
@@ -13,18 +13,16 @@
       
  
 
-      <table id="grid" *ngIf="this.isLoading">
+      <table id="grid">
       	<tr *ngFor="let i of [0,1,2,3,4,5,6,7,8]">
       	<td *ngFor="let j of [0,1,2,3,4,5,6,7,8]">
-         <input id="cell-{{j+9*i}}"  type="number"  maxlength="1" value={{j+1}} min='1' max='9' oninput="validity.valid||(value='');" (keyup.enter)="closeKeyboard()"></td>
+         <input id="cell-{{j+9*i}}"  type="number"  maxlength="1" value={{null}} min='1' max='9' oninput="validity.valid||(value='');" (keyup.enter)="closeKeyboard()"></td>
 		</tr>
   
 
       </table>
-       <ion-thumbnail slot="start">
-      <img src="assets/image/icon.png" id="imageid" id="imageid">
-    </ion-thumbnail>
-      <img [src]="images" height="100" width="100" *ngIf="images">
+      
+      <!-- <img [src]="images" height="100" width="100" *ngIf="images"> -->
 
     </div>
 
