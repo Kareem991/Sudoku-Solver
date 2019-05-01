@@ -6,6 +6,7 @@ import { Keyboard } from '@ionic-native/keyboard/ngx';
 import { HttpClientModule } from '@angular/common/http';
 import { Base64 } from '@ionic-native/base64/ngx';
 import {GlobalService} from './services/global.service';
+import {LoadingService} from './services/loading.service';
 
 import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
@@ -19,6 +20,7 @@ import { AppRoutingModule } from './app-routing.module';
   entryComponents: [],
   imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule,HttpClientModule,],
   providers: [
+  LoadingService,
   GlobalService,
   Base64,
     HttpClientModule,

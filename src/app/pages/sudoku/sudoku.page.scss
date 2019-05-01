@@ -30,6 +30,13 @@
       input:disabled {
         background-color: #EEEEEE;
       }
+      .buttons{
+      	flex-direction: column;
+      	margin-left: auto;
+      	text-align: center;
+      
+      }
+      
       #cell-0,  #cell-1,  #cell-2  { border-top:    2px solid #000000; }
       #cell-2,  #cell-11, #cell-20 { border-right:  2px solid #000000; }
       #cell-18, #cell-19, #cell-20 { border-bottom: 2px solid #000000; }

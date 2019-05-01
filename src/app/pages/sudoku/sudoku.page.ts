@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { LoadingController } from '@ionic/angular';
 import { Keyboard } from '@ionic-native/keyboard/ngx';
 import  { HttpClient }  from '@angular/common/http';
 import { HttpHeaders } from '@angular/common/http';
@@ -7,6 +6,7 @@ import 'rxjs/add/operator/map';
 import { map } from 'rxjs/operators';
 import {GlobalService} from '../../services/global.service';
 import { Base64 } from '@ionic-native/base64/ngx';
+import {LoadingService} from '../../services/loading.service';
 
 
 
@@ -24,28 +24,16 @@ images: any;
 imagy:any;
 
 
-  constructor(public base64: Base64,public globalService: GlobalService,public loadingController:LoadingController, public keyboard: Keyboard, public httpClientModule: HttpClient) { }
+  constructor(public loading: LoadingService,public base64: Base64,public globalService: GlobalService, public keyboard: Keyboard, public httpClientModule: HttpClient) { }
   closeKeyboard(){
   this.keyboard.hide();
   }
   
    ngOnInit() {
-  
  
- this.toDataURL(
-  'assets/image/imageToSave.png', (function
-  (dataUrl){
-  var ret = dataUrl.replace("data:image/png;base64,",'');
-    this.globalService.imagy=ret;
     this.jsonData=JSON.stringify({image: this.globalService.imagy});
-    this.presentLoading();
-  }).bind(this),''
-)
-
-
-
-
-
+     this.loading.present();
+     this.startHTTP();
   }
 startHTTP(){
 
@@ -59,24 +47,12 @@ const httpOptions = {
  this.httpClientModule.post("https://sudoku-asu.herokuapp.com/image",this.jsonData,httpOptions)
  .subscribe(data=>{
  this.response=data;
- });
+ this.loading.dismiss();
+ this.fill_board(this.response);
+ },
+ error => this.loading.dismiss());
 }
  
- async presentLoading() {
-  	
-    const loading = await this.loadingController.create({
-      message: 'Loading Data',
-      duration: 11000
-    });
-    await loading.present();
-	this.startHTTP();
-    const { role, data } = await loading.onDidDismiss();
-    this.isLoading=true;
-    var myElement = document.querySelectorAll('*[id]');
-	this.fill_board(this.response);
-	
-  }
-
  
   toDataURL(src, callback, outputFormat) {
   var img = new Image();
@@ -103,15 +79,17 @@ var i,j ;
 	var board = response['board']
 	for(i=0;i<9;i++)
 	for(j=0;j<9;j++){
-	var cell = document.getElementById('cell-'+(j+9*i));
+	var cell = <HTMLInputElement> document.getElementById('cell-'+(j+9*i));
 	if(board[i][j]==0)
 	cell["value"]=null;
-	else
+	else{
 	cell["value"]=board[i][j];
+	cell.disabled=true;}
 	}
 	
 
 }
+
 
 }
  
