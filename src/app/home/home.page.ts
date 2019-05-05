@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
 import { NavController } from '@ionic/angular';
 import {GlobalService} from '../services/global.service';
+import { ImageResizer, ImageResizerOptions } from '@ionic-native/image-resizer/ngx';
 
 
 
@@ -12,8 +13,9 @@ import {GlobalService} from '../services/global.service';
 })
 export class HomePage {
 	currentImage: any;
+	
 
-  	constructor(public navCtrl:NavController, private camera: Camera,public globalService: GlobalService) {
+  	constructor(public imageResizer: ImageResizer,public navCtrl:NavController, private camera: Camera,public globalService: GlobalService) {
 }
  ngOnInit() {
  
@@ -34,19 +36,20 @@ takePicture() {
       destinationType: this.camera.DestinationType.DATA_URL,
       encodingType: this.camera.EncodingType.PNG,
       mediaType: this.camera.MediaType.PICTURE,
-      targetHeight: 800,
-      targetWidth: 2000
+      targetHeight: 760,
+      targetWidth: 760,
       
       
     }
 
     this.camera.getPicture(options).then((imageData) => {
-    this.globalService.imagy = imageData;
-      this.currentImage = 'data:image/png;base64,' + imageData;
+    this.globalService.imagy=imageData
+    this.currentImage = 'data:image/png;base64,' + imageData;
     }, (err) => {
      // Handle error
      console.log("Camera issue:" + err);
     });
+
   }
 
   toDataURL(src, callback, outputFormat) {
@@ -69,5 +72,6 @@ takePicture() {
     img.src = src;
   }
 }
+
  
 }

@@ -16,7 +16,7 @@
       <table id="grid">
       	<tr *ngFor="let i of [0,1,2,3,4,5,6,7,8]">
       	<td *ngFor="let j of [0,1,2,3,4,5,6,7,8]">
-         <input id="cell-{{j+9*i}}"  type="number"  maxlength="1" value={{null}} min='1' max='9' oninput="validity.valid||(value='');" (keyup.enter)="closeKeyboard()"></td>
+         <input id="cell-{{j+9*i}}"  type="number"  maxlength="1" value={{null}} min='1' max='9' oninput="validity.valid||(value='');" (keyup.enter)="closeKeyboard()" (change)="validate_move($event)"></td>
 		</tr>
       </table>
       
@@ -25,7 +25,7 @@
     <ion-col class="ion-padding-horizontal">
     <div class="buttons">
         <ion-button color="primary" (click)="validate_answer()">Validate Answer</ion-button>
-        <ion-button color="primary" (click)="show_results()">Show Results</ion-button>
+        <ion-button color="primary" (click)="resulting()" id="but1">Show Results</ion-button>
       </div>
           </ion-col>
 

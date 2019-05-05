@@ -7,6 +7,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { Base64 } from '@ionic-native/base64/ngx';
 import {GlobalService} from './services/global.service';
 import {LoadingService} from './services/loading.service';
+import { ImageResizer, ImageResizerOptions } from '@ionic-native/image-resizer/ngx';
 
 import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
@@ -20,6 +21,7 @@ import { AppRoutingModule } from './app-routing.module';
   entryComponents: [],
   imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule,HttpClientModule,],
   providers: [
+  ImageResizer, 
   LoadingService,
   GlobalService,
   Base64,

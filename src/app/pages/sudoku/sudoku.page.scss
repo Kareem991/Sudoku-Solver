@@ -17,7 +17,7 @@
         vertical-align: middle;  
       }
      input {
-        color: #000000;
+        color: blue;
         padding: 0;
         border: 0;
         text-align: center;
@@ -29,6 +29,7 @@
       }
       input:disabled {
         background-color: #EEEEEE;
+        color: darkred ;
       }
       .buttons{
       	flex-direction: column;
@@ -73,4 +74,5 @@
       #cell-62, #cell-71, #cell-80 { border-right:  2px solid #000000; }
       #cell-78, #cell-79, #cell-80 { border-bottom: 2px solid #000000; }
       #cell-60, #cell-69, #cell-78 { border-left:   2px solid #000000; }
+   
    

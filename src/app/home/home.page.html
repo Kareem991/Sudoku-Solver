@@ -12,7 +12,9 @@
     </button>
   <div class="picture">
   <p> Latest Picture: </p>
-  <img [src]="currentImage" *ngIf="currentImage" style="width:250px;height:300px;">
+  <img [src]="currentImage" *ngIf="currentImage" style="width:250px;height:300px;" id="myImage">
 </div>
-<ion-button color="primary" id="solve" [routerLink]='["/sudoku"]' routerDirection="forward">Solve it now!</ion-button>
+<div>
+</div>
+<ion-button color="primary" id="solve" [routerLink]='["/sudoku"]' routerDirection="forward">Play now!</ion-button>
 </ion-content>
